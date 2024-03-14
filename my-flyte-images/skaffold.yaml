@@ -1,0 +1,18 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: flyte-task
+build:
+  tagPolicy:
+    sha256: {} # this tags everything as latest
+  artifacts:
+  - image: pipelinepilot/flyte-task
+    docker:
+      dockerfile: Dockerfile
+  local: 
+    push: true # Set to true to push to a registry  
+deploy:
+  kubectl: {}
+manifests:
+  rawYaml:
+    - my-app.yml

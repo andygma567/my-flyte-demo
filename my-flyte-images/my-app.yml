@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec: 
+  restartPolicy: OnFailure
+  containers:
+  - name: my-app
+    image: pipelinepilot/flyte-task
+    env:
+    - name: RUNPOD_POD_ID
+      value: "value-of-the-runpod-pod-id"
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "128Mi"
+    command: ["bash", "-c", "sleep infinity"]

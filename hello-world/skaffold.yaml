@@ -1,0 +1,26 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: hello-world
+build:
+  tagPolicy:
+    sha256: {} # this tags everything as latest
+  artifacts:
+    # - image: pipelinepilot/hello-world
+    #   platforms: ["linux/arm64"]
+    - image: pipelinepilot/hello-world-amd64
+      platforms: ["linux/amd64"]
+      context: .
+      sync:
+        infer:
+          - "start.sh"
+          - "hello_world.py"
+      docker:
+        dockerfile: Dockerfile
+  local: 
+    push: true # Set to true to push to a registry
+deploy:
+  kubectl: {}
+manifests:
+  rawYaml:
+    - my-app.yml

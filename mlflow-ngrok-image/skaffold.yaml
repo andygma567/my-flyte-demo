@@ -1,0 +1,21 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: mlflow-ngrok
+build:
+  tagPolicy:
+    sha256: {} # this tags everything as latest
+  artifacts:
+    - image: pipelinepilot/mlflow-ngrok
+      docker:
+        dockerfile: dockerfile
+        buildArgs:
+          NGROK_AUTHTOKEN: "{{.NGROK_AUTHTOKEN}}" # this is the go template format for passing in an environment variable
+      sync:
+        infer:
+          - "start.sh"
+deploy:
+  kubectl: {}
+manifests:
+  rawYaml:
+    - my-pod.yml

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: mlflow-ngrok
+    image: pipelinepilot/mlflow-ngrok
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
