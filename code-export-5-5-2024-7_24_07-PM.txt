@@ -1,0 +1,25 @@
+title Low-cost MLOps Setup with Flyte, MLflow, Runpod, and ngrok
+
+// Define components with icons and colors
+LocalLaptop [icon: laptop, color: lightblue] // Local laptop setup
+Flyte [icon: aws-ec2, color: yellow] // Flyte demo cluster on local laptop
+Runpod [icon: server, color: orange] // Runpod GPU Cloud Rental Service
+MLflow App [icon: database, color: red] // MLflow app in Docker container
+
+// Sequence of interactions
+LocalLaptop > Flyte: Trigger workflow
+activate Flyte
+Flyte > Runpod: Spin up a GPU pod
+activate Runpod
+Runpod > Runpod: Execute hello-world script
+Runpod > MLflow App: Log result via web endpoint (ngrok)
+deactivate Runpod
+deactivate Flyte
+
+// Additional details with blocks
+alt [label: success, color: green] {
+  MLflow App > LocalLaptop: Results logged in a Docker volume
+}
+else [label: failure, color: red] {
+  MLflow App > LocalLaptop: Errors logged in a Docker volume
+}
